@@ -4,9 +4,9 @@ include <MCAD/motors/stepper.scad>
 include <MCAD/shapes/boxes.scad>
 include <MCAD/fasteners/threads.scad>
 include <MCAD/hardware/linear_bearing.scad>
+include <coupler.scad>
 
-
-res=16;
+res=96;
 
 module roundedCube( dimensions = [10,10,10], cornerRadius = 1, faces=32 ) {
 	hull() cornerCylinders( dimensions = dimensions, cornerRadius = cornerRadius, faces=faces ); 
@@ -57,10 +57,13 @@ module BK12(){{
     
 }
 
-module coupler(){  // to be resized!!!
+module coupler2(){  // to be resized!!!
     import("/coupler/coupler.stl");
 }
 
+module coupler_stepper(){
+    coupler(hgt = 25,shaftd1 = 5, shaftd2 = 10, slices = 15, springs=5);
+}
 
 
 // Beams
@@ -92,11 +95,12 @@ module plate(){
 
 
 module z_axis(){
-    translate([-30,286,-25])rotate([90,0,0])BF12();
-    translate([30,60,-25])rotate([90,0,180])BK12();
-    translate([-19,44,19])rotate([180,0,0])coupler();
-    rotate([90,0,0])motor(model=Nema17);
-    translate([0,31,0])rotate([-90,0,0])ball_screw();
+    color("black")translate([-30,286,-25])rotate([90,0,0])BF12();
+    color("black")translate([30,60,-25])rotate([90,0,180])BK12();
+//    translate([-19,44,19])rotate([180,0,0])coupler();
+    translate([0,44,0])rotate([0,90,-90])coupler_stepper();
+    translate([0,12,0])rotate([90,0,0])motor(model=Nema17);
+    color("lightgrey")translate([0,31,0])rotate([-90,0,0])ball_screw();
     translate([-23,170,20])rotate([180,0,0])ball_nut();
 }
 
@@ -126,13 +130,9 @@ module guide_holder(){
 }
 
 module full_guide(){
-    translate([0,-60,0])rotate([90,0,90])guide_holder();
-    translate([221,-0,0])rotate([90,0,-90])guide_holder(); 
-    translate([5,-30,25])rotate([0,90,0])cylinder(d=10,h=210);
-    color("grey")translate([116,-30,25])rotate([0,90,0])cylinder(d=35,h=3);
-    
-    linearBearing(pos=[119,-30,25], angle=[0,90,0], model="LM10UU",
-		material=Steel, sideMaterial=BlackPaint);
+    color("black")translate([0,-60,0])rotate([90,0,90])guide_holder();
+    color("black")translate([221,-0,0])rotate([90,0,-90])guide_holder(); 
+    color("silver")translate([5,-30,25])rotate([0,90,0])cylinder(d=10,h=210);
 }
 
 module load_cell(){
@@ -148,15 +148,43 @@ module load_cell(){
 }
 
 
+module horizontal_tray(){
+    difference(){
+        union(){
+            cube([42,360,40]);
+            translate([0,0,20])rotate([0,90,0])cylinder(d=40,h=42, $fn=res);
+            translate([0,360,20])rotate([0,90,0])cylinder(d=40,h=42, $fn=res);
+        }
+        translate([45,180,20])rotate([0,-90,0])cylinder(d=9,h=50);
+        translate([8,180,20])rotate([0,-90,0])cylinder(d=30,h=9);
+        translate([0,30,0]){
+    translate([0,-30,20])rotate([0,90,0])cylinder(d=35,h=3,$fn=res);
+    translate([0,-30,20])rotate([0,90,0])cylinder(d=12,h=50,$fn=res);
+    linearBearing(pos=[3,-30,20], angle=[0,90,0], model="LM10UU",
+		material=Steel, sideMaterial=BlackPaint);
+    }
+    translate([0,390,0]){
+    translate([0,-30,20])rotate([0,90,0])cylinder(d=35,h=3,$fn=res);
+    translate([0,-30,20])rotate([0,90,0])cylinder(d=12,h=50,$fn=res);
+    linearBearing(pos=[3,-30,20], angle=[0,90,0], model="LM10UU",
+		material=Steel, sideMaterial=BlackPaint);
+    }
+    
+    translate([43,40,0])rotate([0,0,90])ball_nut();
+    translate([43,270,0])rotate([0,0,90])ball_nut();
+    }
+        
+    translate([42,180-50.8/2,(40-12.7)/2])color("black")load_cell();
+}
+
 
 //Final rendering
 translate([-15,-115,25])rotate([0,0,-90])z_axis();
 translate([-15,115,25])rotate([0,0,-90])z_axis();
-//translate([0,-50,0])
-//BF12();
 translate([50,-150,0])full_guide();
 translate([50,210,0])full_guide();
 plate();
-translate([140.5+63.5,-50.8/2,(40-12.7)/2+5])color("black")load_cell();
 
-translate([112,-180,5])%cube([42,360,40]);
+translate([112,-180,5])horizontal_tray();
+
+
