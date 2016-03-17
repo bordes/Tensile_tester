@@ -1,3 +1,3 @@
 # Tensile_tester
 
-Hello!
+Hello! This is the model of ou instrument!
