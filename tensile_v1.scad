@@ -6,7 +6,7 @@ include <MCAD/fasteners/threads.scad>
 include <MCAD/hardware/linear_bearing.scad>
 include <coupler.scad>
 
-res=96;
+res=16;
 
 module roundedCube( dimensions = [10,10,10], cornerRadius = 1, faces=32 ) {
 	hull() cornerCylinders( dimensions = dimensions, cornerRadius = cornerRadius, faces=faces ); 
@@ -179,12 +179,12 @@ module horizontal_tray(){
 
 
 //Final rendering
-translate([-15,-115,25])rotate([0,0,-90])z_axis();
-translate([-15,115,25])rotate([0,0,-90])z_axis();
-translate([50,-150,0])full_guide();
-translate([50,210,0])full_guide();
-plate();
+//translate([-15,-115,25])rotate([0,0,-90])z_axis();
+//translate([-15,115,25])rotate([0,0,-90])z_axis();
+//translate([50,-150,0])full_guide();
+//translate([50,210,0])full_guide();
+projection() plate();
 
-translate([112,-180,5])horizontal_tray();
+//translate([112,-180,5])horizontal_tray();
 
 
