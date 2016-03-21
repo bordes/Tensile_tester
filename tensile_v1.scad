@@ -129,10 +129,72 @@ module guide_holder(){
     }
 }
 
+
+module guide_holder_left(){
+    difference(){
+        union(){
+            cube([60,35,20]);
+            translate([30,23,0])cube([30,20,20]);
+        }
+        translate([45,25,5])cylinder(d=10, h=50, $fn=res);
+        translate([-2,0,5])rotate([0,0,45])cube([5,50,50],center=true);
+        translate([62,0,5])rotate([0,0,-45])cube([5,50,50],center=true);
+        translate([70,35,5])rotate([0,0,45])cube([5,50,50],center=true);
+        translate([-2,35,5])rotate([0,0,-45])cube([5,50,50],center=true);
+//        translate([43,47,5])rotate([0,0,45])cube([5,25,50],center=true);
+        translate([32,47,5])rotate([0,0,-45])cube([5,25,50],center=true);
+        translate([8,36,10])rotate([90,0,0])union(){
+            cylinder(d=4,h=70,$fn=res);
+            cylinder(d=6,h=7,$fn=res);
+        }
+        translate([26,36,10])rotate([90,0,0])union(){
+            cylinder(d=4,h=70,$fn=res);
+            cylinder(d=6,h=7,$fn=res);
+        }
+    }
+}
+
+module guide_holder_right(){
+    difference(){
+        union(){
+            cube([60,35,20]);
+            translate([30,23,0])cube([30,20,20]);
+        }
+        translate([45,25,-35])cylinder(d=10, h=50, $fn=res);
+        translate([-2,0,5])rotate([0,0,45])cube([5,50,50],center=true);
+        translate([62,0,5])rotate([0,0,-45])cube([5,50,50],center=true);
+        translate([70,35,5])rotate([0,0,45])cube([5,50,50],center=true);
+        translate([-2,35,5])rotate([0,0,-45])cube([5,50,50],center=true);
+//        translate([43,47,5])rotate([0,0,45])cube([5,25,50],center=true);
+        translate([32,47,5])rotate([0,0,-45])cube([5,25,50],center=true);
+        translate([8,36,10])rotate([90,0,0])union(){
+            cylinder(d=4,h=70,$fn=res);
+            cylinder(d=6,h=7,$fn=res);
+        }
+        translate([26,36,10])rotate([90,0,0])union(){
+            cylinder(d=4,h=70,$fn=res);
+            cylinder(d=6,h=7,$fn=res);
+        }
+    }
+}
+
 module full_guide(){
     color("black")translate([0,-60,0])rotate([90,0,90])guide_holder();
     color("black")translate([221,-0,0])rotate([90,0,-90])guide_holder(); 
     color("silver")translate([5,-30,25])rotate([0,90,0])cylinder(d=10,h=210);
+}
+
+
+module full_guide_left(){
+    color("black")translate([0,-60,0])rotate([90,0,90])guide_holder_left();
+    color("black")translate([221-20,-60,0])rotate([90,0,90])guide_holder_right(); 
+    color("silver")translate([5,-15,25])rotate([0,90,0])cylinder(d=10,h=210);
+}
+
+module full_guide_right(){
+    color("black")translate([20,-0,0])rotate([90,0,-90])guide_holder_right();
+    color("black")translate([221,-0,0])rotate([90,0,-90])guide_holder_left(); 
+    color("silver")translate([5,-45,25])rotate([0,90,0])cylinder(d=10,h=210);
 }
 
 module load_cell(){
@@ -179,12 +241,16 @@ module horizontal_tray(){
 
 
 //Final rendering
-//translate([-15,-115,25])rotate([0,0,-90])z_axis();
-//translate([-15,115,25])rotate([0,0,-90])z_axis();
-//translate([50,-150,0])full_guide();
-//translate([50,210,0])full_guide();
-projection() plate();
+translate([-15,-115,25])rotate([0,0,-90])z_axis();
+translate([-15,115,25])rotate([0,0,-90])z_axis();
+translate([50,-150,0])full_guide_left();
+translate([50,210,0])full_guide_right();
+plate();
 
-//translate([112,-180,5])horizontal_tray();
+translate([112,-180,5])horizontal_tray();
 
 
+//full_guide_right();
+//translate([0,60,0])full_guide_left();
+//guide_holder_left();
+//translate([80,0,0])guide_holder_right();
