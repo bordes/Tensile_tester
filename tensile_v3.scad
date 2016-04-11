@@ -329,13 +329,13 @@ module horizontal_tray(){
 
 
 ////Final rendering
-//translate([-15,-115,25])rotate([0,0,-90])z_axis();
-//translate([-15,115,25])rotate([0,0,-90])z_axis();
-//translate([50,-150,0])full_guide_vertical();
-//translate([50,170,0])full_guide_vertical();
-//plate();
-//
-//translate([112,-180,5])horizontal_tray();
+translate([-15,-115,25])rotate([0,0,-90])z_axis();
+translate([-15,115,25])rotate([0,0,-90])z_axis();
+translate([50,-150,0])full_guide_vertical();
+translate([50,170,0])full_guide_vertical();
+plate();
+
+translate([112,-180,5])horizontal_tray();
 
 
 //full_guide_right();
@@ -345,4 +345,4 @@ module horizontal_tray(){
 //guide_holder_left();
 //translate([80,0,0])guide_holder_right();
 //guide_holder_vertical();
-switch();
+//switch();
