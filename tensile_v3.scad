@@ -329,13 +329,40 @@ module horizontal_tray(){
 
 
 ////Final rendering
-translate([-15,-115,25])rotate([0,0,-90])z_axis();
-translate([-15,115,25])rotate([0,0,-90])z_axis();
-translate([50,-150,0])full_guide_vertical();
-translate([50,170,0])full_guide_vertical();
+
+//translate([-15,-115,25])rotate([0,0,-90])z_axis();
+//translate([-15,115,25])rotate([0,0,-90])z_axis();
+//translate([50,-150,0])full_guide_vertical();
+//translate([50,170,0])full_guide_vertical();
+projection()
+difference(){
 plate();
 
-translate([112,-180,5])horizontal_tray();
+translate([18,160,-10])cylinder(d=4,50,$fn=res);
+translate([36,160,-10])cylinder(d=4,50,$fn=res);
+translate([285,160,-10])cylinder(d=4,50,$fn=res);
+translate([303,160,-10])cylinder(d=4,50,$fn=res);
+
+translate([18,-160,-10])cylinder(d=4,50,$fn=res);
+translate([36,-160,-10])cylinder(d=4,50,$fn=res);
+translate([285,-160,-10])cylinder(d=4,50,$fn=res);
+translate([303,-160,-10])cylinder(d=4,50,$fn=res);
+
+translate([51,138,-10])cylinder(d=6,50,$fn=res);
+translate([64,138,-10])cylinder(d=6,50,$fn=res);
+translate([51,92,-10])cylinder(d=6,50,$fn=res);
+translate([64,92,-10])cylinder(d=6,50,$fn=res);
+translate([261,138,-10])cylinder(d=6,50,$fn=res);
+translate([261,92,-10])cylinder(d=6,50,$fn=res);
+
+translate([51,-138,-10])cylinder(d=6,50,$fn=res);
+translate([64,-138,-10])cylinder(d=6,50,$fn=res);
+translate([51,-92,-10])cylinder(d=6,50,$fn=res);
+translate([64,-92,-10])cylinder(d=6,50,$fn=res);
+translate([261,-138,-10])cylinder(d=6,50,$fn=res);
+translate([261,-92,-10])cylinder(d=6,50,$fn=res);
+}
+//translate([112,-180,5])horizontal_tray();
 
 
 //full_guide_right();
