@@ -327,13 +327,74 @@ module horizontal_tray(){
     translate([42,180-50.8/2,(40-12.7)/2])color("LightBlue")load_cell();
 }
 
+module nema17_holder(){
+    color("black")difference(){    
+        difference(){
+                union(){
+                    translate([-35,-19,0])cube([70,20,45]);
+                    translate([-35,-39,0])cube([70,40,14]);
+                    translate([-40,-19,0])cube([80,20,14]);
+                }
+                translate([0,0,25])rotate([90,0,0])scale([1.03,1.03,1])motor(model=Nema17);
+                translate([0,-42.8,25])rotate([90,0,180])scale([1.03,1.03,1])motor(model=Nema17);
+                translate([15.5,20,9.5])rotate([90,0,0])cylinder(d=3,h=50,$fn=res);
+                translate([-15.5,20,9.5])rotate([90,0,0])cylinder(d=3,h=50,$fn=res);
+                translate([15.5,20,40.5])rotate([90,0,0])cylinder(d=3,h=50,$fn=res);
+                translate([-15.5,20,40.5])rotate([90,0,0])cylinder(d=3,h=50,$fn=res);
+                translate([0,20,25])rotate([90,0,0])cylinder(d=24,h=50,$fn=96);
+                translate([-41,-20,14])cube([14,24,40]);
+                translate([27,-20,14])cube([14,24,40]);
+                translate([-33,-9,-5])rotate([0,0,0])cylinder(d=4,h=50,$fn=96);
+                translate([-33,-9,7])rotate([0,0,0])cylinder(d=7,h=10,$fn=96);
+                translate([33,-9,-5])rotate([0,0,0])cylinder(d=4,h=50,$fn=96);
+                translate([33,-9,7])rotate([0,0,0])cylinder(d=7,h=10,$fn=96);
+                
+                translate([-28,-29,-5])rotate([0,0,0])cylinder(d=4,h=50,$fn=96);
+                translate([-28,-29,7])rotate([0,0,0])cylinder(d=7,h=10,$fn=96);
+                translate([28,-29,-5])rotate([0,0,0])cylinder(d=4,h=50,$fn=96);
+                translate([28,-29,7])rotate([0,0,0])cylinder(d=7,h=10,$fn=96);
+            }
+    translate([-51,-20,5])rotate([0,45,0])cube([20,30,5]);    
+    translate([51,-20,5])mirror([1,0,0])rotate([0,45,0])cube([20,30,5]);  
+    translate([-46,-49,5])rotate([0,45,0])cube([20,30,5]);    
+    translate([46,-49,5])mirror([1,0,0])rotate([0,45,0])cube([20,30,5]);  
+    translate([0,0,14])mirror([0,0,1]){     
+      translate([-51,-20,5])rotate([0,45,0])cube([20,30,5]);    
+    translate([51,-20,5])mirror([1,0,0])rotate([0,45,0])cube([20,30,5]);  
+    translate([-46,-49,5])rotate([0,45,0])cube([20,30,5]);    
+    translate([46,-49,5])mirror([1,0,0])rotate([0,45,0])cube([20,30,5]);
+    }   
+//    translate([-50,-10,-17])rotate([45,0,0])cube([100,30,5]); 
+    translate([0,0,14])mirror([0,0,1]){     
+      translate([-39,-20,-25])rotate([0,45,0])cube([20,30,5]);    
+    translate([39,-20,-25])mirror([1,0,0])rotate([0,45,0])cube([20,30,5]);  
+    
+    }
+    }
+        
+        
+    //    translate([0,1.9,25])rotate([90,0,0])motor(model=Nema17);
+}
+
+
 
 ////Final rendering
 
-//translate([-15,-115,25])rotate([0,0,-90])z_axis();
-//translate([-15,115,25])rotate([0,0,-90])z_axis();
-//translate([50,-150,0])full_guide_vertical();
-//translate([50,170,0])full_guide_vertical();
+translate([-15,-115,25])rotate([0,0,-90])z_axis();
+translate([-15,115,25])rotate([0,0,-90])z_axis();
+translate([50,-150,0])full_guide_vertical();
+translate([50,170,0])full_guide_vertical();
+translate([112,-180,5])horizontal_tray();
+translate([-3,115,0])rotate([0,0,-90])nema17_holder();
+translate([-3,-115,0])rotate([0,0,-90])nema17_holder();
+plate();
+
+
+//////////////////////////////////////////////////////
+
+//translate([-20,-120,0])cube([10,10,4]);
+
+// Plate drilling plan
 projection()
 difference(){
 plate();
@@ -361,8 +422,19 @@ translate([51,-92,-10])cylinder(d=6,50,$fn=res);
 translate([64,-92,-10])cylinder(d=6,50,$fn=res);
 translate([261,-138,-10])cylinder(d=6,50,$fn=res);
 translate([261,-92,-10])cylinder(d=6,50,$fn=res);
+
+translate([-32,-87,-10])color("red")cylinder(d=4,50,$fn=res);
+translate([-12,-82,-10])color("red")cylinder(d=4,50,$fn=res);
+translate([-32,-143,-10])color("red")cylinder(d=4,50,$fn=res);
+translate([-12,-148,-10])color("red")cylinder(d=4,50,$fn=res);
+
+translate([-32,87,-10])color("red")cylinder(d=4,50,$fn=res);
+translate([-12,82,-10])color("red")cylinder(d=4,50,$fn=res);
+translate([-32,143,-10])color("red")cylinder(d=4,50,$fn=res);
+translate([-12,148,-10])color("red")cylinder(d=4,50,$fn=res);
 }
-//translate([112,-180,5])horizontal_tray();
+
+
 
 
 //full_guide_right();
@@ -372,4 +444,8 @@ translate([261,-92,-10])cylinder(d=6,50,$fn=res);
 //guide_holder_left();
 //translate([80,0,0])guide_holder_right();
 //guide_holder_vertical();
-//switch();
+
+//translate([0,0,50])guide_holder_right();
+//nema17_holder();
+translate([70,-176.8,30])rotate([90,90,180])switch();
+translate([251,-170.3,30])rotate([90,90,0])switch();
